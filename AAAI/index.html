@@ -1,1 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 1. 修改了网页标题 -->
+    <title>腾讯青云AAAI晚宴邀请</title>
+    <!-- 预加载图片优化速度 -->
+    <link rel="preload" as="image" href="poster.jpg">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
 
+        /* 微信遮罩层 */
+        #weixin-tip {
+            display: none; 
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 99999;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+        
+        .tip-content {
+            position: absolute;
+            top: 50px;
+            right: 30px;
+            text-align: right;
+            color: #fff;
+        }
+
+        .arrow-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+            margin-right: 10px;
+        }
+        
+        .arrow-icon {
+            width: 0; 
+            height: 0; 
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 30px solid #0052D9;
+            transform: rotate(45deg);
+            animation: floatArrow 1.5s infinite ease-in-out;
+        }
+
+        @keyframes floatArrow {
+            0%, 100% { transform: translate(0, 0) rotate(45deg); }
+            50% { transform: translate(10px, -10px) rotate(45deg); }
+        }
+
+        .text-main {
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        
+        .text-sub {
+            font-size: 14px;
+            color: #ccc;
+            margin-top: 15px;
+            border-top: 1px solid #555;
+            padding-top: 10px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding-bottom: 80px;
+        }
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+        }
+        .btn {
+            background-color: #0052D9;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,82,217,0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+    </style>
+    <script>
+        function isWeixin() {
+            var ua = navigator.userAgent.toLowerCase();
+            return ua.indexOf('micromessenger') !== -1;
+        }
+    </script>
+</head>
+<body>
+
+    <div id="weixin-tip">
+        <div class="tip-content">
+            <div class="arrow-container">
+                <div class="arrow-icon"></div>
+            </div>
+            <div class="text-main">
+                请点击右上角 <strong>...</strong><br>
+                选择“在浏览器打开”<br>
+                <span style="font-size: 14px; font-weight: normal;">(Open in Browser)</span>
+            </div>
+            <div class="text-sub">
+                为防止页面丢失<br>请跳转至浏览器查看邀请函
+            </div>
+        </div>
+    </div>
+
+    <script>
+        if (isWeixin()) {
+            document.getElementById('weixin-tip').style.display = 'block';
+        }
+    </script>
+
+    <div class="container">
+        <!-- 2. 图片文件名请依然保持 poster.jpg (或修改此处代码) -->
+        <img src="poster.jpg" alt="腾讯青云AAAI晚宴邀请函">
+    </div>
+
+    <div class="footer">
+        <button class="btn" onclick="downloadICS()">📅 添加到日历</button>
+    </div>
+
+    <script>
+        function downloadICS() {
+            // 3. 修改了日历逻辑
+            // 目标时间: 2026年1月22日 17:30 - 21:30 (SGT 新加坡时间)
+            // SGT 是 UTC+8
+            // 写入ICS文件需要转换为 UTC 时间 (SGT - 8小时)
+            // 17:30 - 8 = 09:30 UTC
+            // 21:30 - 8 = 13:30 UTC
+            
+            const event = {
+                title: '腾讯青云AAAI晚宴',
+                // 格式: YYYYMMDD + T + HHMMSS + Z
+                start: '20260122T093000Z', 
+                end:   '20260122T133000Z', 
+                location: 'SKAI Bar',
+                description: '腾讯青云AAAI晚宴\n' +
+                             '时间：2026年1月22日 17:30-21:30 (SGT)\n' +
+                             '地点：SKAI Bar (会场车程20分钟)\n' + 
+                             '导航地址：2 Stamford Road, Level 70, #70-02 Swissôtel The Stamford'
+            };
+
+            const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Tencent Qingyun//AAAI Dinner//CN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+SUMMARY:${event.title}
+DTSTART:${event.start}
+DTEND:${event.end}
+LOCATION:${event.location}
+DESCRIPTION:${event.description}
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-PT30M
+DESCRIPTION:Reminder
+ACTION:DISPLAY
+END:VALARM
+END:VEVENT
+END:VCALENDAR`;
+
+            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            // 修改了下载文件名
+            link.setAttribute('download', 'Tencent_AAAI_Dinner.ics');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
