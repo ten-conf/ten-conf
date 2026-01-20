@@ -12,7 +12,8 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            /* 👇 修改1：背景色改为深黑蓝色，防止下拉露白 */
+            background-color: #0b1324; 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             display: flex;
             flex-direction: column;
@@ -83,8 +84,10 @@
         .container {
             width: 100%;
             max-width: 600px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            /* 👇 修改2：容器背景也改为深黑蓝色 */
+            background-color: #0b1324;
+            /* 去掉了白色背景下的阴影，让视觉更沉浸 */
+            /* box-shadow: 0 0 10px rgba(0,0,0,0.1); */
             padding-bottom: 80px;
         }
         img {
@@ -93,21 +96,18 @@
             display: block;
         }
 
-        /* 👇 修改了这里：底部栏样式 */
         .footer {
             position: fixed;
             bottom: 0;
             width: 100%;
             max-width: 600px;
             
-            /* 修改为深黑蓝色 + 半透明 (RGBA: 11, 19, 36, 透明度0.9) */
+            /* 深黑蓝色 + 半透明 */
             background: rgba(11, 19, 36, 0.9);
             
             padding: 15px 0;
             text-align: center;
-            /* 稍微加深了阴影 */
             box-shadow: 0 -4px 15px rgba(0,0,0,0.3);
-            /* 增加了模糊度，提升质感 */
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             z-index: 100;
