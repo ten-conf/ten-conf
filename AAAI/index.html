@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 1. 修改了网页标题 -->
     <title>腾讯青云AAAI晚宴邀请</title>
-    <!-- 预加载图片优化速度 -->
-    <link rel="preload" as="image" href="poster.jpg">
+    <!-- 1. 修改这里：预加载改为 poster.png -->
+    <link rel="preload" as="image" href="poster.png">
     <style>
         body {
             margin: 0;
@@ -149,8 +148,8 @@
     </script>
 
     <div class="container">
-        <!-- 2. 图片文件名请依然保持 poster.jpg (或修改此处代码) -->
-        <img src="poster.jpg" alt="腾讯青云AAAI晚宴邀请函">
+        <!-- 2. 修改这里：图片源改为 poster.png -->
+        <img src="poster.png" alt="腾讯青云AAAI晚宴邀请函">
     </div>
 
     <div class="footer">
@@ -159,18 +158,13 @@
 
     <script>
         function downloadICS() {
-            // 3. 修改了日历逻辑
-            // 目标时间: 2026年1月22日 17:30 - 21:30 (SGT 新加坡时间)
-            // SGT 是 UTC+8
-            // 写入ICS文件需要转换为 UTC 时间 (SGT - 8小时)
-            // 17:30 - 8 = 09:30 UTC
-            // 21:30 - 8 = 13:30 UTC
+            // 时间设置: 2026年1月22日 17:30 - 21:30 (SGT)
+            // SGT = UTC+8, 所以 UTC = SGT - 8
             
             const event = {
                 title: '腾讯青云AAAI晚宴',
-                // 格式: YYYYMMDD + T + HHMMSS + Z
-                start: '20260122T093000Z', 
-                end:   '20260122T133000Z', 
+                start: '20260122T093000Z', // 17:30 - 8h = 09:30 UTC
+                end:   '20260122T133000Z', // 21:30 - 8h = 13:30 UTC
                 location: 'SKAI Bar',
                 description: '腾讯青云AAAI晚宴\n' +
                              '时间：2026年1月22日 17:30-21:30 (SGT)\n' +
@@ -201,7 +195,6 @@ END:VCALENDAR`;
             const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
             const link = document.createElement('a');
             link.href = window.URL.createObjectURL(blob);
-            // 修改了下载文件名
             link.setAttribute('download', 'Tencent_AAAI_Dinner.ics');
             document.body.appendChild(link);
             link.click();
