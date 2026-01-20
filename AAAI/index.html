@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 1. 修改了网页标题 -->
     <title>腾讯青云AAAI晚宴邀请</title>
     
-    <!-- 预加载图片(可选优化) -->
+    <!-- 图片预加载 -->
     <link rel="preload" as="image" href="poster.png">
 
     <style>
@@ -93,18 +92,27 @@
             height: auto;
             display: block;
         }
+
+        /* 👇 修改了这里：底部栏样式 */
         .footer {
             position: fixed;
             bottom: 0;
             width: 100%;
             max-width: 600px;
-            background: rgba(255, 255, 255, 0.95);
+            
+            /* 修改为深黑蓝色 + 半透明 (RGBA: 11, 19, 36, 透明度0.9) */
+            background: rgba(11, 19, 36, 0.9);
+            
             padding: 15px 0;
             text-align: center;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-            backdrop-filter: blur(5px);
+            /* 稍微加深了阴影 */
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.3);
+            /* 增加了模糊度，提升质感 */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             z-index: 100;
         }
+
         .btn {
             background-color: #0052D9;
             color: white;
@@ -114,7 +122,7 @@
             border-radius: 25px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,82,217,0.3);
+            box-shadow: 0 4px 6px rgba(0, 82, 217, 0.4);
             text-decoration: none;
             display: inline-block;
         }
@@ -151,7 +159,6 @@
     </script>
 
     <div class="container">
-        <!-- 2. 图片文件名改为了 poster.png -->
         <img src="poster.png" alt="腾讯青云AAAI晚宴邀请函">
     </div>
 
@@ -161,11 +168,8 @@
 
     <script>
         function downloadICS() {
-            // 3. 修改了日历逻辑
-            // 时间: 2026年1月22日 17:30 - 21:30 (SGT 新加坡时间)
-            // SGT 是 UTC+8，写入ICS需转为 UTC
-            // 17:30 - 8 = 09:30 UTC
-            // 21:30 - 8 = 13:30 UTC
+            // 时间: 2026年1月22日 17:30 - 21:30 (SGT)
+            // SGT = UTC+8 -> UTC = SGT - 8
             
             const event = {
                 title: '腾讯青云AAAI晚宴',
@@ -201,7 +205,6 @@ END:VCALENDAR`;
             const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
             const link = document.createElement('a');
             link.href = window.URL.createObjectURL(blob);
-            // 修改了下载文件名
             link.setAttribute('download', 'Tencent_AAAI_Dinner.ics');
             document.body.appendChild(link);
             link.click();
